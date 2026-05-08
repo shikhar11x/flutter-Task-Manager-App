@@ -29,7 +29,6 @@
     <td><img src="screenshots/addtaskpage.jpeg" width="180"/></td>
   </tr>
 </table>
----
 
 ## 🚀 Features
 
