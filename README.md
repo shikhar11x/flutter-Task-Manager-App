@@ -15,10 +15,20 @@
 
 ## 📱 Screenshots
 
-| Sign Up | Login | Home | Add Task |
-|--------|------|------|----------|
-| ![Signup](screenshots/signuppage.jpeg) | ![Login](screenshots/Login.jpeg) | ![Home](screenshots/Homepage.jpeg) | ![Add Task](screenshots/addtaskpage.jpeg) |
-
+<table>
+  <tr>
+    <td align="center"><b>Sign Up</b></td>
+    <td align="center"><b>Login</b></td>
+    <td align="center"><b>Home</b></td>
+    <td align="center"><b>Add Task</b></td>
+  </tr>
+  <tr>
+    <td><img src="screenshots/signuppage.jpeg" width="180"/></td>
+    <td><img src="screenshots/Login.jpeg" width="180"/></td>
+    <td><img src="screenshots/Homepage.jpeg" width="180"/></td>
+    <td><img src="screenshots/addtaskpage.jpeg" width="180"/></td>
+  </tr>
+</table>
 ---
 
 ## 🚀 Features
