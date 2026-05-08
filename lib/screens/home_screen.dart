@@ -30,16 +30,30 @@ class _HomeScreenState extends State<HomeScreen> {
     _loadQuote();
   }
 
+// load quote
   Future<void> _loadQuote() async {
+  setState(() {
+    _quoteLoading = true;
+    _quote = '';
+    _author = '';
+  });
+  try {
     final data = await _quoteService.fetchQuote();
-
     setState(() {
       _quote = data['quote']!;
       _author = data['author']!;
       _quoteLoading = false;
     });
+  } catch (e) {
+    setState(() {
+      _quote = 'Stay focused and never give up!';
+      _author = 'Unknown';
+      _quoteLoading = false;
+    });
   }
+}
 
+// logout
   Future<void> _logout() async {
     await _authService.logout();
     if (mounted) {
@@ -49,7 +63,7 @@ class _HomeScreenState extends State<HomeScreen> {
       );
     }
   }
-
+// delete task
   Future<void> _deleteTask(String taskId) async {
     showDialog(
       context: context,
@@ -233,6 +247,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(width: 12),
+                    // userName & Tag line
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -550,6 +565,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ),
       ),
+
+      // add task button
       floatingActionButton: FloatingActionButton(
         backgroundColor: const Color(0xFF4A90E2),
         foregroundColor: Colors.white,
@@ -561,7 +578,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+// statcard
   Widget _buildStatCard(
     String label,
     String value,
@@ -606,7 +623,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
+// task card
   Widget _buildTaskCard(Task task) {
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
