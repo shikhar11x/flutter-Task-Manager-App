@@ -28,7 +28,6 @@
 - 💬 **Daily Motivation** — Fetches a fresh quote from Quotable API on every load
 - 📊 **Task Stats** — See Total, Done & Pending counts at a glance
 - 🎨 **Clean Dark UI** — Smooth gradients, glassmorphism cards, intuitive UX
-- ✅ **Form Validation** — Smart error messages before you even submit
 - ⚡ **Real-time Sync** — Powered by Cloud Firestore streams
 
 ---
@@ -57,16 +56,7 @@ lib/
 
 ## ⚙️ Setup & Installation
 
-### Prerequisites
 
-Make sure you have the following installed:
-
-- [Flutter SDK](https://flutter.dev/docs/get-started/install) (3.x or above)
-- [Dart SDK](https://dart.dev/get-dart)
-- Android Studio / VS Code
-- A Firebase project
-
----
 
 ### 🔧 Step 1 — Clone the Repository
 
@@ -122,22 +112,6 @@ Response used:
 }
 ```
 
----
-
-## 📊 Evaluation Breakdown
-
-| Criteria | Marks |
-|---|---|
-| Flutter UI & Navigation | 20 |
-| Firebase Authentication | 20 |
-| Firestore CRUD Operations | 25 |
-| REST API Integration | 10 |
-| Code Structure & Clean Code | 15 |
-| App Performance & Error Handling | 10 |
-| **Total** | **100** |
-
----
-
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
@@ -165,7 +139,7 @@ Response used:
 
 ## 👨‍💻 Author
 
-**Shikhar** — Flutter Developer Intern Candidate
+**Shikhar**
 
 [![GitHub](https://img.shields.io/badge/GitHub-shikhar11x-181717?style=flat&logo=github)](https://github.com/shikhar11x)
 
@@ -173,8 +147,5 @@ Response used:
 
 <div align="center">
 
-Made with ❤️ and Flutter
-
-*Assignment submitted to **Sankar Group** — Flutter Development Internship*
 
 </div>
