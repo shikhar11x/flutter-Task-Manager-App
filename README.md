@@ -17,7 +17,7 @@
 
 | Sign Up | Home | Add Task |
 |--------|------|----------|
-| ![Signup](screenshots/signup.png) | ![Home](screenshots/home.png) | ![Add Task](screenshots/add_task.png) |
+| ![Signup](screenshots/signuppage.jpeg) | ![Login](screenshots/Login.jpeg) | ![Home](screenshots/Homepage.jpeg) | ![Add Task](screenshots/addtaskpage.jpeg) |
 
 ---
 
