@@ -15,8 +15,8 @@
 
 ## 📱 Screenshots
 
-| Sign Up | Home | Add Task |
-|--------|------|----------|
+| Sign Up | Login | Home | Add Task |
+|--------|------|------|----------|
 | ![Signup](screenshots/signuppage.jpeg) | ![Login](screenshots/Login.jpeg) | ![Home](screenshots/Homepage.jpeg) | ![Add Task](screenshots/addtaskpage.jpeg) |
 
 ---
