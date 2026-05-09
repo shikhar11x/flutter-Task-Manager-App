@@ -58,6 +58,17 @@ lib/
 │   ├── firestore_service.dart # Firestore CRUD operations
 │   └── quote_service.dart     # REST API — Quotable.io
 ├── widgets/                   # Reusable UI components
+│   ├── app_background.dart      
+│   ├── date_picker_field.dart     
+│   ├── delete_dialog.dart       
+│   ├── glass_container.dart
+│   ├── glass_text_field.dart      
+│   ├── gradient_button.dart     
+│   ├── logout_button.dart       
+│   ├── quote_card.dart
+│   ├── stat_card.dart
+│   ├── task_card.dart   
+│   └── user_avatar.dart 
 └── main.dart
 ```
 
