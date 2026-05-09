@@ -30,14 +30,18 @@
   </tr>
 </table>
 
+---
+
 ## 🚀 Features
 
 - 🔐 **Firebase Authentication** — Sign Up, Login & Logout
 - 📋 **Task CRUD** — Add, Edit, Delete & Mark tasks as Done
-- 💬 **Daily Motivation** — Fetches a fresh quote from Quotable API on every load
-- 📊 **Task Stats** — See Total, Done & Pending counts at a glance
-- 🎨 **Clean Dark UI** — Smooth gradients, glassmorphism cards, intuitive UX
+- 📊 **Dashboard Stats** — Total, Done & Pending task counters with progress bar
+- 🔍 **Search & Filter** — Real-time search + filter by All / Pending / Completed
+- 💬 **Daily Motivation** — Fresh motivational quote fetched from REST API with one-tap refresh
+- 🎨 **Glassmorphism UI** — Frosted glass cards, smooth gradients, animated checkbox
 - ⚡ **Real-time Sync** — Powered by Cloud Firestore streams
+- ♻️ **Reusable Widgets** — Fully componentized clean widget architecture
 
 ---
 
@@ -46,29 +50,29 @@
 ```
 lib/
 ├── models/
-│   └── task.dart              # Task data model
+│   └── task.dart                # Task data model
 ├── screens/
-│   ├── login_screen.dart      # Login UI
-│   ├── signup_screen.dart     # Sign Up UI
-│   ├── home_screen.dart       # Dashboard with task list
-│   ├── add_task_screen.dart   # Add new task
-│   └── edit_task_screen.dart  # Edit existing task
+│   ├── login_screen.dart        # Login UI
+│   ├── signup_screen.dart       # Sign Up UI
+│   ├── home_screen.dart         # Dashboard with task list
+│   ├── add_task_screen.dart     # Add new task
+│   └── edit_task_screen.dart    # Edit existing task
 ├── services/
-│   ├── auth_service.dart      # Firebase Auth logic
-│   ├── firestore_service.dart # Firestore CRUD operations
-│   └── quote_service.dart     # REST API — Quotable.io
-├── widgets/                   # Reusable UI components
-│   ├── app_background.dart      
-│   ├── date_picker_field.dart     
-│   ├── delete_dialog.dart       
+│   ├── auth_service.dart        # Firebase Auth logic
+│   ├── firestore_service.dart   # Firestore CRUD operations
+│   └── quote_service.dart       # REST API — DummyJSON Quotes
+├── widgets/                     # Reusable UI components
+│   ├── app_background.dart
+│   ├── date_picker_field.dart
+│   ├── delete_dialog.dart
 │   ├── glass_container.dart
-│   ├── glass_text_field.dart      
-│   ├── gradient_button.dart     
-│   ├── logout_button.dart       
+│   ├── glass_text_field.dart
+│   ├── gradient_button.dart
+│   ├── logout_button.dart
 │   ├── quote_card.dart
 │   ├── stat_card.dart
-│   ├── task_card.dart   
-│   └── user_avatar.dart 
+│   ├── task_card.dart
+│   └── user_avatar.dart
 └── main.dart
 ```
 
@@ -76,13 +80,11 @@ lib/
 
 ## ⚙️ Setup & Installation
 
-
-
 ### 🔧 Step 1 — Clone the Repository
 
 ```bash
-git clone https://github.com/your-username/taskflow-flutter.git
-cd taskflow-flutter
+git clone https://github.com/shikhar11x/flutter-Task-Manager-App.git
+cd flutter-Task-Manager-App
 ```
 
 ### 📦 Step 2 — Install Dependencies
@@ -97,9 +99,21 @@ flutter pub get
 2. Enable **Email/Password** under Authentication → Sign-in methods
 3. Create a **Cloud Firestore** database (start in test mode)
 4. Add an **Android App** to your Firebase project
-   - Use your app's package name (e.g., `com.yourname.taskflow`)
+   - Use your app's package name (e.g., `com.example.task_manager_app`)
    - Download `google-services.json` and place it in `android/app/`
-5. *(Optional for iOS)* Add an iOS app and download `GoogleService-Info.plist` → place in `ios/Runner/`
+
+**Firestore Security Rules:**
+
+```
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /tasks/{taskId} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
+```
 
 ### ▶️ Step 4 — Run the App
 
@@ -113,47 +127,65 @@ To build a release APK:
 flutter build apk --release
 ```
 
-APK will be available at: `build/outputs/flutter-apk/app-release.apk`
+APK will be available at: `build/app/outputs/flutter-apk/app-release.apk`
 
 ---
-
-## 🌐 API Used
-
-**Motivational Quote API**
-```
-GET https://api.quotable.io/random
-```
-
-Response used:
-```json
-{
-  "content": "Stay focused and never give up!",
-  "author": "Unknown"
-}
-```
 
 ## 🛠️ Tech Stack
 
 | Layer | Technology |
 |---|---|
 | Framework | Flutter + Dart |
-| Auth | Firebase Authentication |
+| Authentication | Firebase Authentication |
 | Database | Cloud Firestore |
-| REST API | Quotable.io |
-| State | setState + StreamBuilder |
+| REST API | DummyJSON Quotes API |
+| State Management | setState + StreamBuilder |
 | Platform | Android & iOS |
+
+---
+
+## 🌐 API Used
+
+**Motivational Quote API**
+
+```
+GET https://dummyjson.com/quotes/random
+```
+
+Response used:
+
+```json
+{
+  "quote": "Stay focused and never give up!",
+  "author": "Unknown"
+}
+```
+
+---
+
+## 🗄️ Firestore Data Structure
+
+```
+tasks (collection)
+└── {taskId} (document)
+    ├── title        : String
+    ├── description  : String
+    ├── date         : String
+    ├── isCompleted  : Boolean
+    └── userId       : String
+```
 
 ---
 
 ## 📁 APK Download
 
-> 📥 [Download Latest APK]([https://github.com/shikhar11x/flutter-Task-Manager-App/releases/tag/v1.0](https://github.com/shikhar11x/flutter-Task-Manager-App/releases/tag/v1.0))
+📥 [Download Latest APK](https://github.com/shikhar11x/flutter-Task-Manager-App/releases/tag/v1.0)
 
 ---
 
 ## 🎥 Demo Video
 
-> 🎬 [Watch Demo on YouTube / Drive](https://your-demo-link-here)
+🎬 [Watch Demo on YouTube / Drive](https://your-demo-link-here)
 
 ---
 
@@ -162,10 +194,12 @@ Response used:
 **Shikhar**
 
 [![GitHub](https://img.shields.io/badge/GitHub-shikhar11x-181717?style=flat&logo=github)](https://github.com/shikhar11x)
+[![Email](https://img.shields.io/badge/Email-shikhar11x@gmail.com-D14836?style=flat&logo=gmail&logoColor=white)](mailto:shikhar11x@gmail.com)
 
 ---
 
 <div align="center">
 
+Made with ❤️ using Flutter & Firebase
 
 </div>
