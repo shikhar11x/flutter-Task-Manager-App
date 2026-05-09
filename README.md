@@ -37,7 +37,6 @@
 - 🔐 **Firebase Authentication** — Sign Up, Login & Logout
 - 📋 **Task CRUD** — Add, Edit, Delete & Mark tasks as Done
 - 📊 **Dashboard Stats** — Total, Done & Pending task counters with progress bar
-- 🔍 **Search & Filter** — Real-time search + filter by All / Pending / Completed
 - 💬 **Daily Motivation** — Fresh motivational quote fetched from REST API with one-tap refresh
 - 🎨 **Glassmorphism UI** — Frosted glass cards, smooth gradients, animated checkbox
 - ⚡ **Real-time Sync** — Powered by Cloud Firestore streams
