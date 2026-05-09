@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
-import 'dart:ui';
 import '../services/auth_service.dart';
+import '../widgets/app_background.dart';
+import '../widgets/glass_container.dart';
+import '../widgets/glass_text_field.dart';
+import '../widgets/gradient_button.dart';
 import 'signup_screen.dart';
 import 'home_screen.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
-
   @override
   State<LoginScreen> createState() => _LoginScreenState();
 }
@@ -17,7 +19,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _passwordController = TextEditingController();
   final AuthService _authService = AuthService();
   bool _isLoading = false;
-  bool _obscurePassword = true;
+  bool _obscure = true;
 
   Future<void> _login() async {
     if (_formKey.currentState!.validate()) {
@@ -28,19 +30,13 @@ class _LoginScreenState extends State<LoginScreen> {
           _passwordController.text.trim(),
         );
         if (mounted) {
-          Navigator.pushReplacement(
-            context,
-            MaterialPageRoute(builder: (_) => const HomeScreen()),
-          );
+          Navigator.pushReplacement(context,
+              MaterialPageRoute(builder: (_) => const HomeScreen()));
         }
       } catch (e) {
         if (mounted) {
           ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text('Error: ${e.toString()}'),
-              backgroundColor: Colors.red.shade400,
-            ),
-          );
+              SnackBar(content: Text('Error: ${e.toString()}')));
         }
       }
       setState(() => _isLoading = false);
@@ -50,19 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-            colors: [
-              Color(0xFF1a1a2e),
-              Color(0xFF16213e),
-              Color(0xFF0f3460),
-              Color(0xFF4A90E2),
-            ],
-          ),
-        ),
+      body: AppBackground(
         child: SafeArea(
           child: Center(
             child: SingleChildScrollView(
@@ -70,7 +54,6 @@ class _LoginScreenState extends State<LoginScreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  // Logo
                   Container(
                     padding: const EdgeInsets.all(20),
                     decoration: BoxDecoration(
@@ -83,116 +66,69 @@ class _LoginScreenState extends State<LoginScreen> {
                         size: 60, color: Colors.white),
                   ),
                   const SizedBox(height: 24),
-                  const Text(
-                    'Task Manager',
-                    style: TextStyle(
-                      fontSize: 32,
-                      fontWeight: FontWeight.bold,
-                      color: Colors.white,
-                      letterSpacing: 1.5,
-                    ),
-                  ),
+                  const Text('Task Manager',
+                      style: TextStyle(
+                          fontSize: 32,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.white,
+                          letterSpacing: 1.5)),
                   const SizedBox(height: 8),
-                  Text(
-                    'Manage your tasks',
-                    style: TextStyle(
-                      fontSize: 14,
-                      color: Colors.white.withOpacity(0.7),
-                    ),
-                  ),
+                  Text('Manages Your Tasks',
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.white.withOpacity(0.7))),
                   const SizedBox(height: 40),
-
-                  // Glass Card
-                  ClipRRect(
+                  GlassContainer(
+                    padding: const EdgeInsets.all(28),
                     borderRadius: BorderRadius.circular(24),
-                    child: BackdropFilter(
-                      filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
-                      child: Container(
-                        padding: const EdgeInsets.all(28),
-                        decoration: BoxDecoration(
-                          color: Colors.white.withOpacity(0.1),
-                          borderRadius: BorderRadius.circular(24),
-                          border: Border.all(
-                            color: Colors.white.withOpacity(0.2),
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          GlassTextField(
+                            controller: _emailController,
+                            label: 'Email',
+                            icon: Icons.email_outlined,
+                            validator: (val) =>
+                                val!.isEmpty ? 'Enter Email' : null,
                           ),
-                        ),
-                        child: Form(
-                          key: _formKey,
-                          child: Column(
-                            children: [
-                              _buildGlassTextField(
-                                controller: _emailController,
-                                label: 'Email',
-                                icon: Icons.email_outlined,
-                                validator: (val) =>
-                                    val!.isEmpty ? 'Enter Email' : null,
-                              ),
-                              const SizedBox(height: 16),
-                              _buildGlassTextField(
-                                controller: _passwordController,
-                                label: 'Password',
-                                icon: Icons.lock_outline,
-                                obscure: _obscurePassword,
-                                suffixIcon: IconButton(
-                                  icon: Icon(
-                                    _obscurePassword
-                                        ? Icons.visibility_off
-                                        : Icons.visibility,
-                                    color: Colors.white70,
-                                  ),
-                                  onPressed: () => setState(() =>
-                                      _obscurePassword = !_obscurePassword),
-                                ),
-                                validator: (val) => val!.length < 6
-                                    ? 'Min 6 characters'
-                                    : null,
-                              ),
-                              const SizedBox(height: 28),
-                              SizedBox(
-                                width: double.infinity,
-                                height: 52,
-                                child: ElevatedButton(
-                                  onPressed: _isLoading ? null : _login,
-                                  style: ElevatedButton.styleFrom(
-                                    backgroundColor:
-                                        const Color(0xFF4A90E2),
-                                    foregroundColor: Colors.white,
-                                    shape: RoundedRectangleBorder(
-                                      borderRadius:
-                                          BorderRadius.circular(14),
-                                    ),
-                                    elevation: 0,
-                                  ),
-                                  child: _isLoading
-                                      ? const CircularProgressIndicator(
-                                          color: Colors.white)
-                                      : const Text('Login',
-                                          style: TextStyle(
-                                              fontSize: 16,
-                                              fontWeight:
-                                                  FontWeight.bold)),
-                                ),
-                              ),
-                            ],
+                          const SizedBox(height: 16),
+                          GlassTextField(
+                            controller: _passwordController,
+                            label: 'Password',
+                            icon: Icons.lock_outline,
+                            obscure: _obscure,
+                            suffixIcon: IconButton(
+                              icon: Icon(
+                                  _obscure
+                                      ? Icons.visibility_off
+                                      : Icons.visibility,
+                                  color: Colors.white70),
+                              onPressed: () =>
+                                  setState(() => _obscure = !_obscure),
+                            ),
+                            validator: (val) => val!.length < 6
+                                ? 'Min 6 characters'
+                                : null,
                           ),
-                        ),
+                          const SizedBox(height: 28),
+                          GradientButton(
+                            text: 'Login',
+                            onPressed: _login,
+                            isLoading: _isLoading,
+                          ),
+                        ],
                       ),
                     ),
                   ),
                   const SizedBox(height: 20),
                   TextButton(
-                    onPressed: () => Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                          builder: (_) => const SignupScreen()),
-                    ),
-                    child: Text(
-                      "Don't have an account? Sign up",
-                      style: TextStyle(
-                        color: Colors.white.withOpacity(0.8),
-                        fontSize: 14,
-                      ),
-                    ),
+                    onPressed: () => Navigator.push(context,
+                        MaterialPageRoute(
+                            builder: (_) => const SignupScreen())),
+                    child: Text("Don't have an account? Sign up",
+                        style: TextStyle(
+                            color: Colors.white.withOpacity(0.8))),
                   ),
                 ],
               ),
@@ -200,47 +136,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ),
         ),
       ),
-    );
-  }
-
-  Widget _buildGlassTextField({
-    required TextEditingController controller,
-    required String label,
-    required IconData icon,
-    bool obscure = false,
-    Widget? suffixIcon,
-    String? Function(String?)? validator,
-  }) {
-    return TextFormField(
-      controller: controller,
-      obscureText: obscure,
-      style: const TextStyle(color: Colors.white),
-      decoration: InputDecoration(
-        labelText: label,
-        labelStyle: TextStyle(color: Colors.white.withOpacity(0.7)),
-        prefixIcon: Icon(icon, color: Colors.white70),
-        suffixIcon: suffixIcon,
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide:
-              BorderSide(color: Colors.white.withOpacity(0.3)),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Colors.white),
-        ),
-        errorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Colors.redAccent),
-        ),
-        focusedErrorBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(14),
-          borderSide: const BorderSide(color: Colors.redAccent),
-        ),
-        filled: true,
-        fillColor: Colors.white.withOpacity(0.07),
-      ),
-      validator: validator,
     );
   }
 }
